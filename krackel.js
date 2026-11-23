@@ -1,32 +1,47 @@
-function krackelBorder(el, opts = {}) {
+function roughBorder(el, opts = {}) {
   // Faktor: 1 bei 400px Fensterbreite, nach oben begrenzt
   const u = Math.min(window.innerWidth, 800) / 400;
 
   const {
-    step = 1.5 * u,
+    step = 0.1 * u,
     jitter = 4 * u,
-    width = 2 * u,
+    width = 0.5 * u,
     line = false,
     gap = 4 * u,
-    inset = width / 2 + jitter
+    inset = width / 2 + jitter,
+    stroke = null,   // null = Farbe der Füllung; sonst z. B. "#fff"
+    fill = null      // null = bisherige Hintergrundfarbe des Buttons übernehmen
   } = opts;
 
-  el.insertAdjacentHTML("beforeend",
-    `<svg class="krackel"><path fill="none" stroke="currentColor" stroke-width="${width}" stroke-linejoin="round"/></svg>`);
-  const path = el.lastElementChild.firstElementChild;
+  const cs = getComputedStyle(el);
 
+  // Füllfarbe: bisherige Hintergrundfarbe merken, Button selbst transparent machen
+  let fillColor = "none";
+  if (!line) {
+    const bg = fill ?? cs.backgroundColor;
+    const transparent = !bg || bg === "transparent" || bg === "rgba(0, 0, 0, 0)";
+    if (!transparent) fillColor = bg;
+    el.style.setProperty("background-color", "transparent", "important");
+  }
+
+  // Linienfarbe einmalig festlegen, damit sie der Textfarbe nicht mehr folgt
+  const strokeColor = stroke ?? (fillColor !== "none" ? fillColor : cs.color);
+
+  if (cs.position === "static") el.style.position = "relative";
+  el.style.isolation = "isolate";   // Füllung bleibt hinter dem Text, aber im Button
+
+  el.insertAdjacentHTML("beforeend",
+    `<svg class="krickel" style="position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:-1">
+       <path fill="${fillColor}" stroke="${strokeColor}" stroke-width="${width}" stroke-linejoin="round"/>
+     </svg>`);
+  const path = el.lastElementChild.querySelector("path");
+  const r = () => (Math.random() * 2 - 1) * jitter;
+
+  // Wie bei krickel: jeder Punkt wird zufällig in x und y versetzt
   const seg = (x1, y1, x2, y2) => {
-    const dx = x2 - x1, dy = y2 - y1;
-    const len = Math.hypot(dx, dy) || 1;
-    const nx = -dy / len, ny = dx / len;                     // Normale der Kante
-    const n = Math.max(2, Math.round(len / step));
-    return Array.from({ length: n }, (_, k) => {
-      const t = k / n;
-      const side = k % 2 ? 1 : -1;                           // abwechselnd innen/außen
-      const amp = side * jitter * (1 + 0.5 * Math.random()); // unterschiedlich lange Zacken
-      const slide = (Math.random() - 1) * step * 1;          // Verschiebung entlang der Kante
-      return `${x1 + dx * t + nx * amp + (dx / len) * slide},${y1 + dy * t + ny * amp + (dy / len) * slide}`;
-    });
+    const n = Math.max(2, Math.round(Math.hypot(x2 - x1, y2 - y1) / step));
+    return Array.from({ length: n }, (_, k) =>
+      `${x1 + (x2 - x1) * k / n + r()},${y1 + (y2 - y1) * k / n + r()}`);
   };
 
   function draw() {
@@ -58,4 +73,4 @@ function krackelBorder(el, opts = {}) {
 }
 
 // Buttons
-document.querySelectorAll("button.menu").forEach(el => krackelBorder(el));
+document.querySelectorAll("button.menu").forEach(el => roughBorder(el));

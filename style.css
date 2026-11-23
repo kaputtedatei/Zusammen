@@ -1,3 +1,17 @@
+/* 
+Aufbau
+
+1. Main
+2. Text
+3. Buttons
+4. Schwarzes Brett
+5. Anderes
+*/
+
+
+
+
+
 /* Main */
 
 body {
@@ -34,10 +48,15 @@ body {
 #col3 {
   display: flex;
   align-items: flex-end;
-  margin: 0 3vh 20vh 3vh;
+  margin: 0 3vh 3vh 3vh;
   justify-content: space-between;
   box-sizing: border-box;
 }
+
+
+
+
+
 
 
 
@@ -61,6 +80,11 @@ h2 {
 h1, h2, h3, h4, h5, h6, button {
   position: relative;
 }
+
+
+
+
+
 
 
 
@@ -91,9 +115,58 @@ button.klein {
 
 button.menu {
   font-family: 'Elza', sans-serif;
-  font-size: 6vw;
+  font-size: 5.5vw;
+  color: #fff;
+  font-weight: 400;
   padding: 0.4em 0.6em;
+  background-color: #2B2B2B !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Schwarzes Brett */
+
+.schwarzesbrett {
+  background-color: #2B2B2B;
+}
+
+.schwarzesbrett button {
+  color: #fff;
+  font-weight: 400;
+}
+
+.schwarzesbrett button.klein {
+  color: #2B2B2B;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+}
+
+.schwarzesbrett h1 {
+  color: #fff;
+  font-weight: 400;
+}
+
+.schwarzesbrett #col2 {
+  position: relative;   /* Bezugspunkt für die frei platzierten Buttons */
+}
+
+.schwarzesbrett #col2 button.klein {
+  position: absolute;
+  transition: left 0.6s ease, top 0.6s ease, transform 0.6s ease;
+}
+
+
+
+
+
 
 
 

@@ -15,7 +15,7 @@ formen.forEach((name, i) => {
     const W = window.innerWidth, H = window.innerHeight;
     const w = rand(500, 500);                          // Breite in px
     const h = w * img.naturalHeight / img.naturalWidth; // Seitenverhältnis bleibt erhalten
-    const cut = rand(0.25, 0.6);                       // Anteil, der abgeschnitten wird
+    const cut = rand(0.9, 0.5);                       // Anteil, der abgeschnitten wird
     const edge = (start + i) % 4;                      // 0 oben, 1 rechts, 2 unten, 3 links
 
     let x, y;
