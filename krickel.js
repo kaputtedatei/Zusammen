@@ -1,8 +1,23 @@
-function roughBorder(el, { step = 2, jitter = 3, width = 5, line = false, gap = 4, inset = width / 2 + jitter } = {}) {
+function roughBorder(el, opts = {}) {
+  // Faktor: 1 bei 400px Fensterbreite, nach oben begrenzt, damit es am Laptop nicht riesig wird
+  const u = Math.min(window.innerWidth, 800) / 400;
+
+  const {
+    step = 1 * u,
+    jitter = 2 * u,
+    width = 2.5 * u,
+    line = false,
+    gap = 4 * u,
+    inset = width / 2 + jitter
+  } = opts;
+
   el.insertAdjacentHTML("beforeend",
     `<svg class="krickel"><path fill="none" stroke="currentColor" stroke-width="${width}" stroke-linejoin="round"/></svg>`);
   const path = el.lastElementChild.firstElementChild;
   const r = () => (Math.random() * 2 - 1) * jitter;
+
+
+
 
   const seg = (x1, y1, x2, y2) => {
     const n = Math.max(2, Math.round(Math.hypot(x2 - x1, y2 - y1) / step));
@@ -39,6 +54,6 @@ function roughBorder(el, { step = 2, jitter = 3, width = 5, line = false, gap = 
 }
 
 // Buttons
-document.querySelectorAll("button:not(.klein)").forEach(el => roughBorder(el));
+document.querySelectorAll("button:not(.menu, .klein)").forEach(el => roughBorder(el));
 // Überschriften: Unterstreichung
-document.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(el => roughBorder(el, { line: true }));
+document.querySelectorAll("h1").forEach(el => roughBorder(el, { line: true }));

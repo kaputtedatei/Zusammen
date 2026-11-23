@@ -1,12 +1,13 @@
 /* Main */
 
 body {
+  margin: 0;
   font-family: 'Elza', sans-serif;
   text-align: center;
   font-weight: 500;
   line-height: normal;
   display: grid;
-  grid-template-rows: 30% 50% 20%;
+  grid-template-rows: 20% 60% 20%;
   height: 100vh;
 }
 
@@ -19,15 +20,26 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 10vh;
+  margin-inline: 1.5vh;
+}
+
+.was #col2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -5vh;
 }
 
 #col3 {
   display: flex;
   align-items: flex-end;
-  margin: 0 3vh 3vh 3vh;
+  margin: 0 3vh 20vh 3vh;
   justify-content: space-between;
   box-sizing: border-box;
 }
+
+
 
 
 
@@ -41,25 +53,28 @@ h1 {
   width: fit-content;
 }
 
+h2 {
+  font-size: 5.5vw; 
+  font-weight: 500;
+}
+
 h1, h2, h3, h4, h5, h6, button {
   position: relative;
 }
 
-h1, h2, h3, h4, h5, h6 {
-}
 
 
 
 
 
-/* Klassen andere*/
+/* Buttons */
 
 button {
   font-family: 'Elza', sans-serif;
   font-size: 10vw;
   font-weight: 500;
   line-height: normal;
-  padding: 0.2vw 3vw 0.4vw 3vw;
+  padding: 0.08em 0.4em 0.15em 0.4em;
   border: none;
   background: none;
   color: #2B2B2B;
@@ -68,8 +83,27 @@ button {
 
 button.klein {
   font-family: 'Elza', sans-serif;
+  font-size: 5.5vw;
+  padding: 0.2em 0.4em 0.24em 0.4em;
+  color: #669AFF;
+  margin: 0.2em 0;
+}
+
+button.menu {
+  font-family: 'Elza', sans-serif;
   font-size: 6vw;
-  padding: 1.5vw 4vw 2vw 4vw;
+  padding: 0.4em 0.6em;
+}
+
+
+
+
+
+
+/* Anderes */
+
+.krickel-text {
+  filter: url(#krickel-text);
 }
 
 .krickel {
@@ -79,6 +113,7 @@ button.klein {
   height: 100%;
   overflow: visible;
   pointer-events: none;
+  /* mix-blend-mode: difference; */
 }
 
 .krackel {
@@ -89,4 +124,6 @@ button.klein {
   overflow: visible;
   pointer-events: none;
 }
+
+
 
