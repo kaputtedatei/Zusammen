@@ -173,6 +173,43 @@ button.menu {
 
 
 
+/* Intro */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1;                    /* über dem Inhalt, unter den Formen */
+  display: grid;
+  place-items: end center;       /* Text unten, horizontal mittig */
+  padding-bottom: 4vh;           /* Abstand zum unteren Rand */
+  box-sizing: border-box;
+  background: #fff;              /* deine Hintergrundfarbe */
+  transition: opacity 0.6s ease;
+}
+
+#intro h1 {
+  color: #2b2b2b;
+}
+
+#intro.weg {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Inhalt ist unsichtbar, solange das Intro läuft. Das Layout bleibt erhalten. */
+body.intro > :not(#intro):not(.form) {
+  visibility: hidden;
+}
+
+
+
+
+
+
+
+
+
+
 /* Anderes */
 
 .krickel-text {
